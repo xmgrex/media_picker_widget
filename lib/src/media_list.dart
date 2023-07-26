@@ -78,6 +78,9 @@ class _MediaListState extends State<MediaList> {
           isSelected: _isPreviouslySelected(_mediaList[index]),
           selectionIndex: _getSelectionIndex(_mediaList[index]),
           decoration: widget.decoration,
+          isDisable: widget.maxMediaCount != null &&
+              _selectedMedias.length >= widget.maxMediaCount! &&
+              !_isPreviouslySelected(_mediaList[index]),
         ),
       ),
     );
