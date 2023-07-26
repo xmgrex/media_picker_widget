@@ -44,6 +44,8 @@ class PickerDecoration {
   ///loading widget to be used as media place holder until media loads
   final Widget? loadingWidget;
 
+  final Color disableColor;
+
   ///[counterBuilder] is used to customize the selection counter on picked media in the list. As it is placed in [Stack] widget, you can use [Positioned]/[Align] widget to position it.
   ///[context] is the BuildContext of picker header
   ///[index] is the index of selected media in the list. Show nothing if it is null
@@ -70,5 +72,6 @@ class PickerDecoration {
     this.videoDurationBuilder,
     this.counterBuilder,
     this.selectedColor = Colors.black26,
+    this.disableColor = Colors.black45,
   });
 }
