@@ -13,6 +13,7 @@ class MediaList extends StatefulWidget {
     required this.decoration,
     this.scrollController,
     required this.onMediaTilePressed,
+    this.maxMediaCount,
   });
 
   final AssetPathEntity album;
@@ -20,7 +21,9 @@ class MediaList extends StatefulWidget {
   final MediaCount? mediaCount;
   final PickerDecoration decoration;
   final ScrollController? scrollController;
-  final Function(MediaViewModel media, List<MediaViewModel> selectedMedias) onMediaTilePressed;
+  final Function(MediaViewModel media, List<MediaViewModel> selectedMedias)
+      onMediaTilePressed;
+  final int? maxMediaCount;
 
   @override
   _MediaListState createState() => _MediaListState();
@@ -140,14 +143,18 @@ class _MediaListState extends State<MediaList> {
   }
 
   void _onMediaTileSelected(bool isSelected, MediaViewModel media) {
-    if(widget.mediaCount==MediaCount.single){
+    if (widget.mediaCount == MediaCount.single) {
       _selectedMedias = [media];
-    }
-    else {
+    } else {
       if (isSelected) {
+        if (widget.maxMediaCount != null &&
+            _selectedMedias.length >= widget.maxMediaCount!) {
+          return;
+        }
         setState(() => _selectedMedias.add(media));
       } else {
-        setState(() => _selectedMedias.removeWhere((_media) => _media.id == media.id));
+        setState(() =>
+            _selectedMedias.removeWhere((_media) => _media.id == media.id));
       }
     }
     widget.onMediaTilePressed(media, _selectedMedias);
@@ -162,7 +169,8 @@ class _MediaListState extends State<MediaList> {
       thumbnailAsync: entity.thumbnailDataWithSize(ThumbnailSize(200, 200)),
       type: mediaType,
       thumbnail: null,
-      videoDuration: entity.type == AssetType.video ? entity.videoDuration : null,
+      videoDuration:
+          entity.type == AssetType.video ? entity.videoDuration : null,
     );
   }
 }

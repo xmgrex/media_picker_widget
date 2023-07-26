@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onCancel: () => Navigator.pop(context),
           mediaCount: MediaCount.multiple,
           mediaType: MediaType.all,
+          maxMediaCount: 10,
           decoration: PickerDecoration(
             blurStrength: 0,
             scaleAmount: 1,
