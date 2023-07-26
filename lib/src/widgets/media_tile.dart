@@ -48,7 +48,7 @@ class MediaTile extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(0.5),
             child: Container(
-              color: isDisable ? Colors.grey.shade300 : Colors.transparent,
+              color: isDisable ? Colors.grey.shade800 : Colors.transparent,
               child: Stack(
                 children: [
                   Positioned.fill(
