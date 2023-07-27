@@ -48,7 +48,14 @@ class MediaTile extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(0.5),
             child: Container(
-              color: isDisable ? decoration.disableColor : Colors.transparent,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isSelected
+                      ? decoration.selectedColor
+                      : Colors.transparent,
+                  width: isSelected ? 2 : 0,
+                ),
+              ),
               child: Stack(
                 children: [
                   Positioned.fill(
@@ -83,12 +90,14 @@ class MediaTile extends StatelessWidget {
                                 ),
                                 Positioned.fill(
                                   child: AnimatedOpacity(
-                                    opacity: isSelected ? 1 : 0,
+                                    opacity: isSelected || isDisable ? 1 : 0,
                                     curve: Curves.easeOut,
                                     duration: _duration,
                                     child: ClipRect(
                                       child: Container(
-                                        color: decoration.selectedColor,
+                                        color: isSelected || isDisable
+                                            ? decoration.disableColor
+                                            : Colors.transparent,
                                       ),
                                     ),
                                   ),

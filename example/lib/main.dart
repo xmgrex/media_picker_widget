@@ -57,17 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
         shrinkWrap: true,
         children: List.generate(
             mediaList.length,
-                (index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 80,
-                width: 80,
-                child: mediaList[index].thumbnail==null ? const SizedBox() : Image.memory(
-                  mediaList[index].thumbnail!,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )),
+            (index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: mediaList[index].thumbnail == null
+                        ? const SizedBox()
+                        : Image.memory(
+                            mediaList[index].thumbnail!,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                )),
       ),
     );
   }
@@ -85,20 +87,28 @@ class _MyHomePageState extends State<MyHomePage> {
           onCancel: () => Navigator.pop(context),
           mediaCount: MediaCount.multiple,
           mediaType: MediaType.all,
-          maxMediaCount: 10,
+          maxMediaCount: 5,
           decoration: PickerDecoration(
             blurStrength: 0,
             scaleAmount: 1,
-            counterBuilder: (context, index){
-              if(index==null) return const SizedBox();
+            selectedColor: Colors.green,
+            disableColor: Colors.black.withOpacity(0.6),
+            counterBuilder: (context, index) {
+              if (index == null) return const SizedBox();
               return Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(8),
+                    shape: BoxShape.circle,
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
                   ),
-                  padding: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(6),
                   child: Text(
                     '$index',
                     style: const TextStyle(

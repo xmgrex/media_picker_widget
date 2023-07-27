@@ -71,7 +71,7 @@ class PickerDecoration {
     this.noMedia,
     this.videoDurationBuilder,
     this.counterBuilder,
-    this.selectedColor = Colors.black26,
-    this.disableColor = Colors.black45,
+    this.selectedColor = Colors.black54,
+    this.disableColor = Colors.black54,
   });
 }

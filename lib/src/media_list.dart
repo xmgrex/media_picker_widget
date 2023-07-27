@@ -79,13 +79,13 @@ class _MediaListState extends State<MediaList> {
           selectionIndex: _getSelectionIndex(_mediaList[index]),
           decoration: widget.decoration,
           isDisable: widget.maxMediaCount != null &&
-              _selectedMedias.length >= widget.maxMediaCount! &&
-              !_isPreviouslySelected(_mediaList[index]),
+              _selectedMedias.length >= widget.maxMediaCount!,
         ),
       ),
     );
   }
 
+///_handleScrollEvent handles the scroll event of the media list
   void _handleScrollEvent(ScrollNotification scroll) {
     if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
       if (_currentPage != _lastPage) {
@@ -96,6 +96,7 @@ class _MediaListState extends State<MediaList> {
     }
   }
 
+///_fetchNewMedia fetches new media from the album
   void _fetchNewMedia({required bool refresh}) async {
     if (refresh) {
       setState(() {
@@ -135,16 +136,19 @@ class _MediaListState extends State<MediaList> {
     }
   }
 
+///_isPreviouslySelected returns true if the media is already selected
   bool _isPreviouslySelected(MediaViewModel media) {
     return _selectedMedias.any((element) => element.id == media.id);
   }
 
+///_getSelectionIndex returns the index of the media in the selectedMedias list
   int? _getSelectionIndex(MediaViewModel media) {
     var index = _selectedMedias.indexWhere((element) => element.id == media.id);
     if (index == -1) return null;
     return index + 1;
   }
 
+///onMediaTileSelected is called when a media tile is selected
   void _onMediaTileSelected(bool isSelected, MediaViewModel media) {
     if (widget.mediaCount == MediaCount.single) {
       _selectedMedias = [media];
@@ -152,6 +156,7 @@ class _MediaListState extends State<MediaList> {
       if (isSelected) {
         if (widget.maxMediaCount != null &&
             _selectedMedias.length >= widget.maxMediaCount!) {
+          print(_selectedMedias.length);
           return;
         }
         setState(() => _selectedMedias.add(media));
@@ -163,6 +168,7 @@ class _MediaListState extends State<MediaList> {
     widget.onMediaTilePressed(media, _selectedMedias);
   }
 
+///_toMediaViewModel converts an AssetEntity to MediaViewModel
   static MediaViewModel _toMediaViewModel(AssetEntity entity) {
     var mediaType = MediaType.all;
     if (entity.type == AssetType.video) mediaType = MediaType.video;

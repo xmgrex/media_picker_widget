@@ -65,6 +65,7 @@ class _MediaPickerState extends State<MediaPicker> {
   AssetPathEntity? _selectedAlbum;
   late List<MediaViewModel> _selectedMedias = [...MediaConversionService.toMediaViewList(widget.mediaList)];
 
+///_fetchAlbums() is used to fetch all the albums from device storage
   Future<List<AssetPathEntity>> _fetchAlbums() async {
     var type = RequestType.common;
     if (widget.mediaType == MediaType.all) {
@@ -121,6 +122,7 @@ class _MediaPickerState extends State<MediaPicker> {
     setState(() => _selectedAlbum = album);
   }
 
+///_builder() is used to build the UI of picker
   Widget _builder(
     BuildContext context,
     AsyncSnapshot<List<AssetPathEntity>> snapshot,
