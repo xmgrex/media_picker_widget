@@ -5,7 +5,6 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../media_picker_widget.dart';
-import 'widgets/loading_widget.dart';
 
 class AlbumSelector extends StatelessWidget {
   AlbumSelector({
@@ -49,7 +48,7 @@ class AlbumSelector extends StatelessWidget {
   }
 }
 
-class AlbumTile extends StatelessWidget {
+class AlbumTile extends StatefulWidget {
   AlbumTile({
     required this.album,
     required this.onSelect,
@@ -60,6 +59,12 @@ class AlbumTile extends StatelessWidget {
   final VoidCallback onSelect;
   final PickerDecoration decoration;
 
+  @override
+  State<AlbumTile> createState() => _AlbumTileState();
+}
+
+class _AlbumTileState extends State<AlbumTile>
+    with AutomaticKeepAliveClientMixin {
   Future<Uint8List?> _getAlbumThumb(AssetPathEntity album) async {
     final media = await album.getAssetListPaged(page: 0, size: 1);
 
@@ -70,13 +75,35 @@ class AlbumTile extends StatelessWidget {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+    return FutureBuilder<Uint8List?>(
+      future: _getAlbumThumb(widget.album),
+      builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox.shrink(); // or a loading indicator
+        } else {
+          if (snapshot.data == null) {
+            return SizedBox
+                .shrink(); // No widget is displayed if media is empty
+          } else {
+            return _buildAlbumTile(context, snapshot.data!);
+          }
+        }
+      },
+    );
+  }
+
+  Widget _buildAlbumTile(BuildContext context, Uint8List albumThumb) {
     return Container(
       width: double.infinity,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onSelect,
+          onTap: widget.onSelect,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -84,17 +111,20 @@ class AlbumTile extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 width: 80,
                 height: 80,
-                child: FutureBuilder(
-                  future: _getAlbumThumb(album),
-                  builder: _builder,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.memory(
+                    albumThumb,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(
                 width: 10,
               ),
               Text(
-                album.name,
-                style: decoration.albumTextStyle ??
+                widget.album.name,
+                style: widget.decoration.albumTextStyle ??
                     TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -104,7 +134,7 @@ class AlbumTile extends StatelessWidget {
                 width: 5,
               ),
               FutureBuilder(
-                future: album.assetCountAsync,
+                future: widget.album.assetCountAsync,
                 builder: _assetCountBuilder,
               ),
             ],
@@ -120,53 +150,12 @@ class AlbumTile extends StatelessWidget {
   ) {
     return Text(
       '${snapshot.data ?? 0}',
-      style: decoration.albumCountTextStyle ??
+      style: widget.decoration.albumCountTextStyle ??
           TextStyle(
             color: Colors.grey.shade600,
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
     );
-  }
-
-  Widget _builder(
-    BuildContext context,
-    AsyncSnapshot<Uint8List?> snapshot,
-  ) {
-    if (snapshot.hasError) {
-      return Center(
-        child: Icon(
-          Icons.error_outline,
-          color: Colors.grey.shade400,
-          size: 40,
-        ),
-      );
-    }
-
-    if (snapshot.connectionState == ConnectionState.done) {
-      final albumThumb = snapshot.data;
-
-      if (albumThumb == null) {
-        return Center(
-          child: Icon(
-            Icons.error_outline,
-            color: Colors.grey.shade400,
-            size: 40,
-          ),
-        );
-      } else {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.memory(
-            albumThumb,
-            fit: BoxFit.cover,
-          ),
-        );
-      }
-    } else {
-      return LoadingWidget(
-        decoration: decoration,
-      );
-    }
   }
 }

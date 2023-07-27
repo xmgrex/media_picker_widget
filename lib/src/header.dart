@@ -186,26 +186,12 @@ class HeaderState extends State<Header> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.decoration.completeText,
+                        '${widget.decoration.completeText} (${_selectedMedia.length})',
                         style: widget.decoration.completeTextStyle ??
                             TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
-                      ),
-                      Text(
-                        ' (${_selectedMedia.length})',
-                        style: TextStyle(
-                          color: widget.decoration.completeTextStyle?.color ??
-                              Colors.white,
-                          fontSize: widget
-                                      .decoration.completeTextStyle?.fontSize !=
-                                  null
-                              ? widget.decoration.completeTextStyle!.fontSize! *
-                                  0.77
-                              : 11,
-                          fontWeight: FontWeight.w300,
-                        ),
                       ),
                     ],
                   ),
