@@ -111,7 +111,7 @@ class HeaderState extends State<Header> with TickerProviderStateMixin {
             builder: (context, child) => Transform.rotate(
               angle: _arrowAnimation.value * pi,
               child: Icon(
-                Icons.keyboard_arrow_up_outlined,
+                Icons.arrow_drop_down,
                 size: (widget.decoration.albumTitleStyle?.fontSize) != null
                     ? widget.decoration.albumTitleStyle!.fontSize! * 1.5
                     : 20,
