@@ -210,7 +210,6 @@ class HeaderState extends State<Header> with TickerProviderStateMixin {
                   onPressed: onSelectionDone,
                   style: widget.decoration.completeButtonStyle ??
                       TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(3),
                         ),
