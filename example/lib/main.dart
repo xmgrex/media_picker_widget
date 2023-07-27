@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Media Picker',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(),
