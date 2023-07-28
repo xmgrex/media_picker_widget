@@ -188,7 +188,7 @@ class _MediaListState extends State<MediaList> {
     if (entity.type == AssetType.image) mediaType = MediaType.image;
     return MediaViewModel(
       id: entity.id,
-      thumbnailAsync: entity.thumbnailDataWithSize(ThumbnailSize(200, 200)),
+      thumbnailAsync: entity.thumbnailDataWithSize(ThumbnailSize(300, 300)),
       type: mediaType,
       thumbnail: null,
       videoDuration:
