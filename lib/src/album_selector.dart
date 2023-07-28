@@ -33,7 +33,7 @@ class AlbumSelector extends StatelessWidget {
       return SlidingUpPanel(
         controller: panelController,
         minHeight: 0,
-        color: Theme.of(context).canvasColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [],
         maxHeight: constrains.maxHeight,
         panelBuilder: (sc) {
