@@ -56,21 +56,25 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        children: List.generate(
-            mediaList.length,
-            (index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: mediaList[index].thumbnail == null
-                        ? const SizedBox()
-                        : Image.memory(
-                            mediaList[index].thumbnail!,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                )),
+        children: List.generate(mediaList.length, (index) {
+          final media = mediaList[index];
+          if (media.videoDuration != null) {
+            print(media.videoDuration);
+          }
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 80,
+              width: 80,
+              child: mediaList[index].thumbnail == null
+                  ? const SizedBox()
+                  : Image.memory(
+                      mediaList[index].thumbnail!,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -89,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mediaCount: MediaCount.multiple,
           mediaType: MediaType.all,
           maxMediaCount: 5,
+          maxVideoDuration: const Duration(seconds: 30),
           decoration: PickerDecoration(
             blurStrength: 0,
             scaleAmount: 1,

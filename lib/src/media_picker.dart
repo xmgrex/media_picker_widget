@@ -21,6 +21,7 @@ class MediaPicker extends StatefulWidget {
     this.onPicking,
     this.headerBuilder,
     this.maxMediaCount,
+    this.maxVideoDuration,
   });
 
   ///CallBack on image pick is done
@@ -51,6 +52,8 @@ class MediaPicker extends StatefulWidget {
   final HeaderBuilder? headerBuilder;
 
   final int? maxMediaCount; 
+
+  final Duration? maxVideoDuration;
 
   @override
   _MediaPickerState createState() => _MediaPickerState();
@@ -165,6 +168,7 @@ class _MediaPickerState extends State<MediaPicker> {
                       scrollController: widget.scrollController,
                       onMediaTilePressed: _onMediaTilePressed,
                       maxMediaCount: widget.maxMediaCount,
+                      maxVideDuration: widget.maxVideoDuration,
                     ),
                   ),
                   AlbumSelector(

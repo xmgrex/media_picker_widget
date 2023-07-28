@@ -56,4 +56,37 @@ class Media {
     this.longitude,
     this.index,
   });
+
+  // copyWith
+  Media copyWith({
+    String? id,
+    File? file,
+    Uint8List? thumbnail,
+    Uint8List? mediaByte,
+    Size? size,
+    DateTime? creationTime,
+    DateTime? modifiedTime,
+    String? title,
+    double? latitude,
+    double? longitude,
+    MediaType? mediaType,
+    Duration? videoDuration,
+    int? index,
+  }) {
+    return Media(
+      id: id ?? this.id,
+      file: file ?? this.file,
+      thumbnail: thumbnail ?? this.thumbnail,
+      mediaByte: mediaByte ?? this.mediaByte,
+      size: size ?? this.size,
+      creationTime: creationTime ?? this.creationTime,
+      modifiedTime: modifiedTime ?? this.modifiedTime,
+      title: title ?? this.title,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      mediaType: mediaType ?? this.mediaType,
+      videoDuration: videoDuration ?? this.videoDuration,
+      index: index ?? this.index,
+    );
+  }
 }

@@ -27,4 +27,22 @@ class MediaViewModel{
     this.type,
     this.videoDuration,
   });
+
+  // copyWith
+  MediaViewModel copyWith({
+    String? id,
+    Uint8List? thumbnail,
+    Future<Uint8List?>? thumbnailAsync,
+    MediaType? type,
+    Duration? videoDuration,
+  }) {
+    return MediaViewModel(
+      id: id ?? this.id,
+      thumbnail: thumbnail ?? this.thumbnail,
+      thumbnailAsync: thumbnailAsync ?? this.thumbnailAsync,
+      type: type ?? this.type,
+      videoDuration: videoDuration ?? this.videoDuration,
+    );
+  }
+
 }

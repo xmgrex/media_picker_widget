@@ -3,6 +3,8 @@ description: A widget that picks media files from storage and allows you to plac
 version: 1.0.4
 homepage: https://github.com/rafid08/media_picker_widget
 
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 environment:
   sdk: ">=2.12.0 <=3.10.1"
   flutter: ">=1.17.0"
@@ -11,9 +13,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  x_kit:
+    git:
+      url: https://github.com/xmgrex/x_kit
+
   photo_manager: ^2.6.0
   sliding_up_panel: ^2.0.0+1
   image_picker: ^0.8.7+3
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:
